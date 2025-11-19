@@ -47,8 +47,8 @@ A modern Next.js application providing AI-powered mental health support with mul
 
 1. **Clone the repository**
    ```bash
-   git clone <repository-url>
-   cd mental-health-chatbot
+   git clone https://github.com/TheTechnextInc/mindful-chatbot.git
+   cd mindful-chatbot
    ```
 
 2. **Install dependencies**
@@ -537,6 +537,10 @@ const transporter = nodemailer.createTransport({
 })
 await transporter.sendMail({ from, to, subject, html })
 ```
+
+##Project URL
+
+🔗 https://mentalhealth-bot.vercel.app/dashboard
 
 ## License
 
