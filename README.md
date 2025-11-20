@@ -12,6 +12,7 @@ A modern Next.js application providing AI-powered mental health support with mul
 - [Usage](#usage)
 - [Emergency Features](#emergency-features)
 - [Email Configuration](#email-configuration)
+- [Automatic Crisis Detection](#automatic-crisis-detection)
 
 ## Features
 
@@ -23,13 +24,14 @@ A modern Next.js application providing AI-powered mental health support with mul
 ✅ **Dark Mode**: Full dark mode support
 ✅ **Progress Tracking**: Analytics and session history
 ✅ **Email Notifications**: Nodemailer with Ethereal Email for testing, Resend API for production
+✅ **Automatic Crisis Detection**: Intelligent system to monitor conversations for concerning language and automatically alert emergency contacts
 
 ## Tech Stack
 
 - **Framework**: Next.js 16 (App Router)
 - **Database**: Supabase (PostgreSQL)
 - **Email**: Nodemailer with Ethereal Email, Resend API
-- **AI**: Sonar API
+- **AI**: Perplexity API
 - **Authentication**: Supabase Auth
 - **Styling**: Tailwind CSS
 - **UI Components**: shadcn/ui
@@ -40,7 +42,7 @@ A modern Next.js application providing AI-powered mental health support with mul
 - Node.js 18+
 - npm or yarn
 - Supabase account
-- Sonar API key
+- Perplexity API key
 - Resend API key (for production email sending)
 
 ### Steps
@@ -63,7 +65,7 @@ A modern Next.js application providing AI-powered mental health support with mul
    NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
    NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
    SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
-   Sonar_API_KEY=your_Sonar_key
+   PERPLEXITY_API_KEY=your_perplexity_key
    RESEND_API_KEY=your_resend_key
    EMAILJS_SERVICE_ID=service_egnr21q
    EMAILJS_TEMPLATE_ID=template_4kcj63e
@@ -537,6 +539,58 @@ const transporter = nodemailer.createTransport({
 })
 await transporter.sendMail({ from, to, subject, html })
 ```
+
+## 🚨 Automatic Crisis Detection
+
+MindfulChat includes an intelligent crisis detection system that monitors conversations for concerning language and automatically alerts emergency contacts when needed.
+
+### How It Works
+
+1. **Keyword Monitoring**: The system monitors chat messages for crisis-related keywords including:
+   - Suicidal thoughts (e.g., "suicide", "kill myself", "want to die")
+   - Self-harm indicators (e.g., "cut myself", "hurt myself")
+   - Hopelessness (e.g., "no hope", "give up", "worthless")
+   - Depression indicators (e.g., "can't go on", "tired of living")
+
+2. **Threshold Tracking**: The system counts crisis keywords per session
+   - 1 detection: Medium concern (logged)
+   - 2 detections: High concern (logged)
+   - 3+ detections: **CRITICAL** - Automatic emergency alert sent
+
+3. **Automatic Alert**: When threshold is reached (3+ crisis messages):
+   - Emergency contact receives urgent email immediately
+   - Email includes crisis summary and detected keywords
+   - Crisis resources provided for immediate help
+   - Alert logged to database for tracking
+
+### Crisis Keyword List
+
+The system monitors for 30+ crisis-related terms across four categories:
+
+```typescript
+// Suicidal thoughts, self-harm, hopelessness, depression indicators
+CRISIS_KEYWORDS = [
+  "suicide", "suicidal", "kill myself", "end my life", "want to die",
+  "self harm", "cut myself", "hurt myself", "hopeless", "no hope",
+  "give up", "can't go on", "worthless", "burden", ...
+]
+```
+
+### Privacy & Safety
+
+- Crisis detection runs server-side only
+- Keywords are matched case-insensitively
+- Detection doesn't interrupt user's chat experience
+- Emergency contacts are only notified at threshold (3+)
+- All alerts are logged for safety auditing
+
+### For Emergency Contacts
+
+If you receive an automatic crisis alert:
+1. **Act immediately** - Reach out to the person right away
+2. **Use crisis resources** - Share the hotline numbers provided
+3. **Stay with them** - Don't leave them alone if they're in crisis
+4. **Seek professional help** - Encourage them to call 988 or crisis services
 
 ## License
 

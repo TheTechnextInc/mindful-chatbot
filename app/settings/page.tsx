@@ -1,12 +1,12 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { useRouter } from 'next/navigation'
+import { useRouter } from "next/navigation"
 import { createClient } from "@/lib/supabase/client"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { ArrowLeft, Moon, Sun, AlertCircle } from 'lucide-react'
+import { ArrowLeft, Moon, Sun, AlertCircle } from "lucide-react"
 
 export default function SettingsPage() {
   const router = useRouter()
@@ -27,12 +27,8 @@ export default function SettingsPage() {
       if (!user) {
         router.push("/auth/login")
       } else {
-        const { data: profile } = await supabase
-          .from("profiles")
-          .select("emergency_email")
-          .eq("id", user.id)
-          .single()
-        
+        const { data: profile } = await supabase.from("profiles").select("emergency_email").eq("id", user.id).single()
+
         if (profile?.emergency_email) {
           setEmergencyEmail(profile.emergency_email)
           setNewEmergencyEmail(profile.emergency_email)
@@ -85,10 +81,7 @@ export default function SettingsPage() {
         return
       }
 
-      const { error } = await supabase
-        .from("profiles")
-        .update({ emergency_email: newEmergencyEmail })
-        .eq("id", user.id)
+      const { error } = await supabase.from("profiles").update({ emergency_email: newEmergencyEmail }).eq("id", user.id)
 
       if (error) {
         setSaveMessage("Error updating emergency contact. Please try again.")
@@ -103,12 +96,21 @@ export default function SettingsPage() {
     }
   }
 
-  if (isLoading) return <div>Loading...</div>
+  if (isLoading)
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 flex items-center justify-center">
+        <p className="text-gray-900 dark:text-white">Loading...</p>
+      </div>
+    )
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 p-4 md:p-8">
       <div className="max-w-2xl mx-auto">
-        <Button variant="ghost" onClick={() => router.back()} className="mb-6 hover:bg-gray-200 dark:hover:bg-gray-700">
+        <Button
+          variant="ghost"
+          onClick={() => router.back()}
+          className="mb-6 hover:bg-gray-200 dark:hover:bg-gray-700 dark:text-white"
+        >
           <ArrowLeft className="h-4 w-4 mr-2" />
           Back
         </Button>
@@ -117,7 +119,7 @@ export default function SettingsPage() {
 
         <div className="space-y-4">
           {/* Dark Mode */}
-          <Card className="border-0 shadow-lg dark:bg-gray-800">
+          <Card className="border-0 shadow-lg bg-white dark:bg-gray-800">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-gray-900 dark:text-white">
                 {darkMode ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
@@ -154,7 +156,7 @@ export default function SettingsPage() {
           </Card>
 
           {/* Notifications */}
-          <Card className="border-0 shadow-lg dark:bg-gray-800">
+          <Card className="border-0 shadow-lg bg-white dark:bg-gray-800">
             <CardHeader>
               <CardTitle className="text-gray-900 dark:text-white">Notifications</CardTitle>
             </CardHeader>
@@ -185,7 +187,8 @@ export default function SettingsPage() {
             </CardContent>
           </Card>
 
-          <Card className="border-0 shadow-lg dark:bg-gray-800">
+          {/* Emergency Contact */}
+          <Card className="border-0 shadow-lg bg-white dark:bg-gray-800">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-gray-900 dark:text-white">
                 <AlertCircle className="h-5 w-5 text-red-600 dark:text-red-400" />
@@ -194,7 +197,8 @@ export default function SettingsPage() {
             </CardHeader>
             <CardContent>
               <p className="text-gray-600 dark:text-gray-400 mb-4">
-                Set an emergency contact email to receive alerts when you use the SOS button or when we detect concerning patterns.
+                Set an emergency contact email to receive alerts when you use the SOS button or when we detect
+                concerning patterns.
               </p>
               <div className="space-y-3">
                 <div>
@@ -206,14 +210,16 @@ export default function SettingsPage() {
                     value={newEmergencyEmail}
                     onChange={(e) => setNewEmergencyEmail(e.target.value)}
                     placeholder="emergency.contact@example.com"
-                    className="h-11 dark:bg-gray-700 dark:text-white dark:border-gray-600"
+                    className="h-11 bg-white dark:bg-gray-700 dark:text-white dark:border-gray-600 dark:placeholder-gray-400"
                   />
                   <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
                     {emergencyEmail ? `Current: ${emergencyEmail}` : "No emergency contact set"}
                   </p>
                 </div>
                 {saveMessage && (
-                  <p className={`text-sm ${saveMessage.includes("successfully") ? "text-green-600 dark:text-green-400" : "text-red-600 dark:text-red-400"}`}>
+                  <p
+                    className={`text-sm ${saveMessage.includes("successfully") ? "text-green-600 dark:text-green-400" : "text-red-600 dark:text-red-400"}`}
+                  >
                     {saveMessage}
                   </p>
                 )}

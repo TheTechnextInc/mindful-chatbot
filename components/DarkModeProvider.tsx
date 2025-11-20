@@ -1,15 +1,11 @@
 "use client"
 
 import type React from "react"
-
 import { useEffect } from "react"
 
 export default function DarkModeProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
-    // Check for dark mode preference and apply to html element
-    const isDark =
-      localStorage.getItem("darkMode") === "true" ||
-      (!localStorage.getItem("darkMode") && window.matchMedia("(prefers-color-scheme: dark)").matches)
+    const isDark = localStorage.getItem("darkMode") === "true"
 
     if (isDark) {
       document.documentElement.classList.add("dark")

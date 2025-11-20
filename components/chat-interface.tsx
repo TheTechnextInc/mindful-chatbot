@@ -313,48 +313,55 @@ export function ChatInterface({ mode, user, onBack }: ChatInterfaceProps) {
 
   return (
     <div className="max-w-4xl mx-auto space-y-6">
-      <Card className="border-0 shadow-lg bg-gradient-to-r from-emerald-50 to-teal-50">
+      <Card className="border-0 shadow-lg bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-950 dark:to-teal-950">
         <CardHeader className="pb-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
-              <Button variant="ghost" size="sm" onClick={onBack} className="hover:bg-white/50">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={onBack}
+                className="hover:bg-white/50 dark:hover:bg-gray-800/50 dark:text-white"
+              >
                 <ArrowLeft className="h-4 w-4" />
               </Button>
               <div className="flex items-center gap-3">
                 <div className="text-3xl">{mode.icon}</div>
                 <div>
-                  <CardTitle className="text-xl font-serif text-gray-900">{mode.name}</CardTitle>
-                  <p className="text-sm text-gray-600">{mode.description}</p>
+                  <CardTitle className="text-xl font-serif text-gray-900 dark:text-white">{mode.name}</CardTitle>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">{mode.description}</p>
                 </div>
               </div>
             </div>
             <div className="flex items-center gap-2">
-              <Badge className="bg-emerald-600 text-white">Active Session</Badge>
+              <Badge className="bg-emerald-600 text-white dark:bg-emerald-700">Active Session</Badge>
             </div>
           </div>
         </CardHeader>
       </Card>
 
-      <Card className="min-h-[600px] flex flex-col shadow-lg border-0">
+      <Card className="min-h-[600px] flex flex-col shadow-lg border-0 dark:bg-gray-800 dark:border-gray-700">
         <CardContent className="flex-1 p-6 space-y-6 overflow-y-auto max-h-[600px]">
           {messages.map((message, index) => (
             <div key={index} className={`flex gap-4 ${message.role === "user" ? "justify-end" : "justify-start"}`}>
               {message.role === "assistant" && (
-                <div className="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center flex-shrink-0 mt-1">
-                  <MessageCircle className="h-5 w-5 text-emerald-600" />
+                <div className="w-10 h-10 rounded-full bg-emerald-100 dark:bg-emerald-900 flex items-center justify-center flex-shrink-0 mt-1">
+                  <MessageCircle className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
                 </div>
               )}
 
               <div className={`max-w-[75%] space-y-2 ${message.role === "user" ? "order-1" : ""}`}>
                 <div
                   className={`rounded-2xl px-4 py-3 ${
-                    message.role === "user" ? "bg-emerald-600 text-white ml-auto" : "bg-gray-100 text-gray-900"
+                    message.role === "user"
+                      ? "bg-emerald-600 text-white dark:bg-emerald-700"
+                      : "bg-gray-100 text-gray-900 dark:bg-gray-700 dark:text-white"
                   }`}
                 >
                   <p className="text-sm leading-relaxed whitespace-pre-wrap">{message.content}</p>
                 </div>
 
-                <div className="flex items-center gap-2 text-xs text-gray-500">
+                <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
                   <span>{message.timestamp.toLocaleTimeString()}</span>
                   {message.role === "assistant" && (
                     <div className="flex items-center gap-1">
@@ -406,8 +413,8 @@ export function ChatInterface({ mode, user, onBack }: ChatInterfaceProps) {
               </div>
 
               {message.role === "user" && (
-                <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0 mt-1">
-                  <span className="text-sm font-medium text-gray-700">You</span>
+                <div className="w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center flex-shrink-0 mt-1">
+                  <span className="text-sm font-medium text-gray-700 dark:text-gray-300">You</span>
                 </div>
               )}
             </div>
@@ -415,11 +422,11 @@ export function ChatInterface({ mode, user, onBack }: ChatInterfaceProps) {
 
           {isLoading && (
             <div className="flex gap-4 justify-start">
-              <div className="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center flex-shrink-0 mt-1">
-                <Loader2 className="h-5 w-5 text-emerald-600 animate-spin" />
+              <div className="w-10 h-10 rounded-full bg-emerald-100 dark:bg-emerald-900 flex items-center justify-center flex-shrink-0 mt-1">
+                <Loader2 className="h-5 w-5 text-emerald-600 dark:text-emerald-400 animate-spin" />
               </div>
-              <div className="bg-gray-100 rounded-2xl px-4 py-3">
-                <p className="text-sm text-gray-600">Thinking...</p>
+              <div className="bg-gray-100 dark:bg-gray-700 rounded-2xl px-4 py-3">
+                <p className="text-sm text-gray-600 dark:text-gray-300">Thinking...</p>
               </div>
             </div>
           )}
@@ -427,7 +434,7 @@ export function ChatInterface({ mode, user, onBack }: ChatInterfaceProps) {
           <div ref={messagesEndRef} />
         </CardContent>
 
-        <div className="border-t bg-gray-50 dark:bg-gray-800 p-6">
+        <div className="border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 p-6">
           <form onSubmit={handleSubmit} className="flex gap-3">
             <Textarea
               ref={textareaRef}

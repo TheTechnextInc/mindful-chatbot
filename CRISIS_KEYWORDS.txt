@@ -1,0 +1,50 @@
+# Mental Health Crisis Detection Keywords
+# This file contains keywords used to automatically detect concerning messages
+# and trigger emergency alerts when threshold is reached (3+ occurrences)
+
+## Suicidal Thoughts
+suicide
+suicidal
+kill myself
+end my life
+want to die
+better off dead
+no reason to live
+take my life
+end it all
+not worth living
+
+## Self-Harm Indicators
+self harm
+cut myself
+hurt myself
+harm myself
+self-harm
+
+## Hopelessness & Despair
+hopeless
+no hope
+give up
+can't go on
+nothing matters
+no point
+meaningless
+worthless
+burden
+everyone would be better without me
+
+## Depression & Crisis Indicators
+nobody cares
+alone forever
+can't take it anymore
+done with life
+tired of living
+wish I wasn't here
+disappear
+end the pain
+
+## Notes:
+- Detection is case-insensitive
+- System tracks occurrences per chat session
+- Emergency contact is automatically notified at 3+ crisis message threshold
+- All detections are logged with timestamps and context for safety tracking
