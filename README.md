@@ -49,8 +49,8 @@ A modern Next.js application providing AI-powered mental health support with mul
 
 1. **Clone the repository**
    ```bash
-   git clone <repository-url>
-   cd mental-health-chatbot
+   git clone https://github.com/TheTechnextInc/mindful-chatbot.git
+   cd mindful-chatbot
    ```
 
 2. **Install dependencies**
@@ -540,6 +540,7 @@ const transporter = nodemailer.createTransport({
 await transporter.sendMail({ from, to, subject, html })
 ```
 
+<<<<<<< HEAD
 ## 🚨 Automatic Crisis Detection
 
 MindfulChat includes an intelligent crisis detection system that monitors conversations for concerning language and automatically alerts emergency contacts when needed.
@@ -591,6 +592,11 @@ If you receive an automatic crisis alert:
 2. **Use crisis resources** - Share the hotline numbers provided
 3. **Stay with them** - Don't leave them alone if they're in crisis
 4. **Seek professional help** - Encourage them to call 988 or crisis services
+=======
+##Project URL
+
+🔗 https://mentalhealth-bot.vercel.app/dashboard
+>>>>>>> 3a647c28ae74e9a7a4fa32af8d0f03fc17c7983a
 
 ## License
 
