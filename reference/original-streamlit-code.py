@@ -2,12 +2,12 @@ import streamlit as st
 import requests
 import urllib.parse
 
-PERPLEXITY_API_KEY = "your_perplexity_api_key_here"
+sonar_API_KEY = "your_sonar_api_key_here"
 
-def get_perplexity_response(user_message):
-    url = "https://api.perplexity.ai/chat/completions"
+def get_sonar_response(user_message):
+    url = "https://api.sonar.ai/chat/completions"
     headers = {
-        "Authorization": f"Bearer {PERPLEXITY_API_KEY}",
+        "Authorization": f"Bearer {sonar_API_KEY}",
         "Content-Type": "application/json",
         "accept": "application/json"
     }
@@ -24,7 +24,7 @@ def get_perplexity_response(user_message):
     else:
         return f"Error: {response.status_code} - {response.text}"
 
-st.title("Mental Health Chatbot with Perplexity API")
+st.title("Mental Health Chatbot with sonar API")
 
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = []
@@ -33,7 +33,7 @@ user_input = st.chat_input("Talk to the chatbot about your feelings or mental he
 
 if user_input:
     st.session_state.chat_history.append({"role": "user", "message": user_input})
-    reply = get_perplexity_response(user_input)
+    reply = get_sonar_response(user_input)
     st.session_state.chat_history.append({"role": "assistant", "message": reply})
 
 for chat in st.session_state.chat_history:
