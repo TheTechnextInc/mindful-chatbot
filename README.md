@@ -31,7 +31,7 @@ A modern Next.js application providing AI-powered mental health support with mul
 - **Framework**: Next.js 16 (App Router)
 - **Database**: Supabase (PostgreSQL)
 - **Email**: Nodemailer with Ethereal Email, Resend API
-- **AI**: Perplexity API
+- **AI**: sonar API
 - **Authentication**: Supabase Auth
 - **Styling**: Tailwind CSS
 - **UI Components**: shadcn/ui
@@ -42,7 +42,7 @@ A modern Next.js application providing AI-powered mental health support with mul
 - Node.js 18+
 - npm or yarn
 - Supabase account
-- Perplexity API key
+- sonar API key
 - Resend API key (for production email sending)
 
 ### Steps
@@ -65,7 +65,7 @@ A modern Next.js application providing AI-powered mental health support with mul
    NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
    NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
    SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
-   PERPLEXITY_API_KEY=your_perplexity_key
+   sonar_API_KEY=your_sonar_key
    RESEND_API_KEY=your_resend_key
    EMAILJS_SERVICE_ID=service_egnr21q
    EMAILJS_TEMPLATE_ID=template_4kcj63e
@@ -540,7 +540,6 @@ const transporter = nodemailer.createTransport({
 await transporter.sendMail({ from, to, subject, html })
 ```
 
-<<<<<<< HEAD
 ## 🚨 Automatic Crisis Detection
 
 MindfulChat includes an intelligent crisis detection system that monitors conversations for concerning language and automatically alerts emergency contacts when needed.
@@ -592,11 +591,6 @@ If you receive an automatic crisis alert:
 2. **Use crisis resources** - Share the hotline numbers provided
 3. **Stay with them** - Don't leave them alone if they're in crisis
 4. **Seek professional help** - Encourage them to call 988 or crisis services
-=======
-##Project URL
-
-🔗 https://mentalhealth-bot.vercel.app/dashboard
->>>>>>> 3a647c28ae74e9a7a4fa32af8d0f03fc17c7983a
 
 ## License
 
